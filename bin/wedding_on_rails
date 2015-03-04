@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
 require 'gli'
+require 'commander'
+require 'net/http'
+require 'json'
+
 begin # XXX: Remove this begin/rescue before distributing your app
 require 'wedding_on_rails'
 rescue LoadError
@@ -37,12 +41,70 @@ command :rsvp do |c|
   c.flag :f
   c.action do |global_options,options,args|
 
-    # Your command logic here
-     
-    # If you have any errors, just raise them
-    # raise "that command made no sense"
+    uri = URI('http://wedding.dev/events/1/groups/1/guests')
+    http = Net::HTTP.new(uri.host, uri.port)
+    req =  Net::HTTP::Get.new(uri)
+    guests = JSON.parse(http.request(req).body)
 
-    puts "rsvp command ran"
+    name = ask("What is your full name?")
+
+    guests = guests.select do |guest|
+      guest["name"].downcase == name.downcase
+    end
+
+    if guests.empty?
+      raise "Sorry I couldn't find you :("
+    else
+      guest = guests.first
+    end
+
+    message = "Would you like to change your RSVP?"
+
+    if guest["rsvp"].nil?
+      rsvp = "Not yet RSVP'd"
+      message = "RSVP now?"
+    elsif guest["rsvp"]
+      rsvp = "Yes ^_^"
+    else
+      rsvp = "No"
+    end
+
+    puts "\n Hi #{guest["name"]}! Your current RSVP is: #{rsvp}\n\n"
+
+    puts message
+    will_rsvp = choose(:yes, :no)
+
+    puts "\n"
+
+    new_rsvp = false
+
+    if will_rsvp == :yes
+      choose do |menu|
+        menu.choice("Yes I'd love to come") { new_rsvp = true }
+        menu.choices("No sorry I can't make it") { new_rsvp = false }
+      end
+
+      uri = URI('http://wedding.dev/events/1/groups/1/guests/1')
+      http = Net::HTTP.new(uri.host, uri.port)
+      data = { "guest[rsvp]" => new_rsvp }
+      body = URI.encode_www_form(data)
+      req =  Net::HTTP::Put.new(uri)
+      req.body = body
+      res = http.request(req)
+
+      if res.code == "200"
+        puts "\nAll updated: ^_^"
+      else
+        puts "\nSomething went wrong (#{res.code})"
+      end
+    end
+
+    # # Your command logic here
+
+    # # If you have any errors, just raise them
+    # # raise "that command made no sense"
+
+    # puts "rsvp command ran"
   end
 end
 
