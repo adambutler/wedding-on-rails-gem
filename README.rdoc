@@ -14,4 +14,4 @@ $ wedding_on_rails rsvp
 
 === Contributing
 
-Contributions are welcome, please follow [GitHub Flow](https://guides.github.com/introduction/flow/index.html)
+Contributions are welcome, please follow {GitHub Flow}[https://guides.github.com/introduction/flow/index.html]
