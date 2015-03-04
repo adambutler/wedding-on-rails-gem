@@ -3,11 +3,11 @@ require File.join([File.dirname(__FILE__),'lib','wedding_on_rails','version.rb']
 spec = Gem::Specification.new do |s|
   s.name = 'wedding_on_rails'
   s.version = WeddingOnRails::VERSION
-  s.author = 'Your Name Here'
-  s.email = 'your@email.address.com'
-  s.homepage = 'http://your.website.com'
+  s.author = 'Adam Butler'
+  s.email = 'adam@lab.io'
+  s.homepage = 'http://lab.io'
   s.platform = Gem::Platform::RUBY
-  s.summary = 'A description of your project'
+  s.summary = 'A gem for to RSVP to my wedding'
   s.files = `git ls-files`.split("
 ")
   s.require_paths << 'lib'
