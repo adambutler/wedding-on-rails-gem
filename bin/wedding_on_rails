@@ -41,7 +41,7 @@ command :rsvp do |c|
   c.flag :f
   c.action do |global_options,options,args|
 
-    uri = URI('http://hitched.it/events/1/groups/1/guests')
+    uri = URI('http://hitched.it/events/1/guests.json')
     http = Net::HTTP.new(uri.host, uri.port)
     req =  Net::HTTP::Get.new(uri)
     guests = JSON.parse(http.request(req).body)
@@ -84,7 +84,7 @@ command :rsvp do |c|
         menu.choices("No sorry I can't make it") { new_rsvp = false }
       end
 
-      uri = URI('http://hitched.it/events/1/groups/1/guests/1')
+      uri = URI("http://hitched.it/events/1/guests/#{guest["id"]}.json")
       http = Net::HTTP.new(uri.host, uri.port)
       data = { "guest[rsvp]" => new_rsvp }
       body = URI.encode_www_form(data)
