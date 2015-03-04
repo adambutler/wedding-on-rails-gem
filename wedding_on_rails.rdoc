@@ -1,0 +1,5 @@
+= wedding_on_rails
+
+Generate this with
+    wedding_on_rails rdoc
+After you have described your command line interface

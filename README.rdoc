@@ -1,0 +1,6 @@
+= wedding_on_rails
+
+Describe your project here
+
+:include:wedding_on_rails.rdoc
+
