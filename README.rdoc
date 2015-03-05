@@ -1,17 +1,17 @@
-# wedding-on-rails
+= wedding-on-rails
 
-### Install
+=== Install
 
-```
+<tt>
 $ gem install wedding_on_rails
-```
+</tt>
 
-### Usage
+=== Usage
 
-```
+<tt>
 $ wedding_on_rails rsvp
-```
+</tt>
 
-### Contributing
+=== Contributing
 
-Contributions are welcome, please follow [GitHub Flow](https://guides.github.com/introduction/flow/index.html)
+Contributions are welcome, please follow {GitHub Flow}[https://guides.github.com/introduction/flow/index.html]
