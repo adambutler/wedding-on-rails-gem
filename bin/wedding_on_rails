@@ -62,7 +62,7 @@ command :rsvp do |c|
 
     if guest["rsvp"].nil?
       rsvp = "Not yet RSVP'd"
-      message = "RSVP now?"
+      message = "Would you like to RSVP now?"
     elsif guest["rsvp"]
       rsvp = "Yes ^_^"
     else
